@@ -1,0 +1,108 @@
+#: import RiseInTransition kivy,uix.screenmanager.RiseInTransition
+#: import SlideTransition kivy,uix.screenmanager.SlideTransition
+<ElementCard@MDCard>:
+    radius: dp(10)
+    padding: dp(10)
+    spacing: dp(10)
+    image: ''
+    text: ''
+    sub_text: ''
+    orientation: 'vertical'
+    ripple_behavior: True
+    on_release:
+        app.root.transition = RiseInTransition()
+    image:
+        source: root.image
+        haling: 'center'
+    MDBoxLayout:
+            orientation: 'vertical'
+            MDLabel:
+                    text: root.text
+                    haling: 'center'
+            MDLabel:
+                    text: root.sub_text
+                    haling: 'center'
+
+<CustomizeScreen@MDBoxLayout>:
+    orientation: 'vertical'
+    text:''
+    padding: 100
+    MDLabel:
+        text: root.text
+        haling: 'center'
+        pos_hint: {'center_x': .5}
+    MDFillRoundFlatButton:
+        text: 'REGRESAR'
+        pos_hint: {'center_X': 5}
+        on_release:
+            app.root.current = 'screen_pricipal'
+            app.root.transition = SlideTransition(direction= 'left')
+
+
+
+
+
+
+
+<UI>:
+    MDScreen:
+        name: 'screen_pricipal'
+        md_bg_color: 0, .5, .5, 1
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDBoxLayout:
+                size_hint: 1, .2
+                orientation: 'horizontal'
+                padding: dp(10)
+                MDCard:
+                    radius: dp(10)
+                    padding: dp(10)
+                    line_color: 1,0,1,1
+
+                    MDLabel:
+                        text: 'CAVEPREMI'
+                        haling: 'center'
+                        pos_hint: {'center_y':0.5}
+                    MDSwitch:
+                        pos_hint: {'center_y':0.5}
+                        on_active:
+                            app.change_style(*args)
+
+            MDGridLayout:
+                cols: 3
+                size_hint: 1, .8
+                padding: ('10dp', '10dp', '10dp', '10dp')
+                spacing: '10dp'
+
+                ElementCard:
+                    text: 'Productos'
+                    image: 'una imagencualquiera.png'
+                    on_release:
+                        root.current = 'screen1'
+
+                ElementCard:
+                    text: 'Facturas'
+                    image: 'una imagencualquiera.png'
+                    on_release:
+                        root.current = 'screen2'
+
+                ElementCard:
+                    text: 'Usuarios'
+                    image: 'una imagencualquiera.png'
+                    on_release:
+                        root.current = 'screen3'
+    
+    MDScreen:
+        name: 'screen1'
+        CustomizeScreen:
+            text:'Pantalla Uno'
+    
+    MDScreen:
+        name: 'screen2'
+        CustomizeScreen:
+            text:'Pantalla Uno'
+
+    MDScreen:
+        name: 'screen3'
+        CustomizeScreen:
+            text:'Pantalla Uno'
